@@ -30,7 +30,6 @@ EmailListDao dao = new EmailListDaoImpl(dbUser, dbPass);
 List<EmailVo> list = dao.getList();
 
 //	response.getWriter().println(list);
-
 %>
         <!-- 리스트 -->
         <!-- vo 객체의 getter를 이용, 리스트를 표시 -->
