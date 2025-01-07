@@ -16,7 +16,7 @@
             아래 항목을 기입하고 등록 버튼을 클릭하세요.
         </p>
 
-        <form action="" method="POST">
+        <form action="insert.jsp" method="POST">
             <div class="form-group">
                 <label for="ln">성</label>
                 <input type="text" class="form-control" name="ln" value="">
@@ -33,7 +33,7 @@
         </form>
 
         <p class="mt-3">
-            <a href="" class="btn btn-secondary">목록</a>
+            <a href="index.jsp" class="btn btn-secondary">목록</a>
         </p>
     </div>
 
