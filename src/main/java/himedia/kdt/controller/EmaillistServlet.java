@@ -24,6 +24,14 @@ public class EmaillistServlet extends BaseServlet {
 			RequestDispatcher rd = getServletContext()
 					.getRequestDispatcher("/WEB-INF/views/form.jsp");
 			rd.forward(req, resp);
+		} else if ("delete".equals(actionName)) {
+			EmailListDao dao = new EmailListDaoImpl(dbUser, dbPass);
+			Long no = Long.valueOf(req.getParameter("no"));
+			
+			dao.delete(no);
+			
+			//	게시물 홈으로 Redirect
+			resp.sendRedirect(req.getContextPath() + "/el");
 		} else {
 			//	DAO로부터 데이터 객체를 불러옴
 			EmailListDao dao = new EmailListDaoImpl(dbUser, dbPass);
@@ -56,6 +64,7 @@ public class EmaillistServlet extends BaseServlet {
 			System.err.println("INSERT FAILED!");
 		}
 		
+		//	목록 페이지로 리다이렉트
 		resp.sendRedirect(req.getContextPath() + "/el");
 	}
 }
