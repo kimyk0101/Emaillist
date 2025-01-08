@@ -6,9 +6,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-ServletContext context = getServletContext();
-String dbUser = context.getInitParameter("dbUser");
-String dbPass = context.getInitParameter("dbPass");
+List<EmailVo> list = null;
+
+list = (List<EmailVo>)request.getAttribute("list");	//	object 타입이므로 컨버팅 필요
+
 %>
 
 <!DOCTYPE html>
@@ -24,13 +25,8 @@ String dbPass = context.getInitParameter("dbPass");
 </head>
 <body>
     <div class="container">
-        <h1 class="mt-5">메일링 리스트 (Model 1)</h1>
-<%
-EmailListDao dao = new EmailListDaoImpl(dbUser, dbPass);
-List<EmailVo> list = dao.getList();
+        <h1 class="mt-5">메일링 리스트 (Model 2)</h1>
 
-//	response.getWriter().println(list);
-%>
         <!-- 리스트 -->
         <!-- vo 객체의 getter를 이용, 리스트를 표시 -->
         <table class="table table-bordered mt-3">
@@ -42,24 +38,23 @@ List<EmailVo> list = dao.getList();
                 </tr>
             </thead>
             <tbody>
-            <% Iterator<EmailVo> it = list.iterator(); 
-            while (it.hasNext()) {
-            	EmailVo vo = it.next();
+            <%
+            for (EmailVo vo: list) {
             %>
                 <tr>
                     <td><%= vo.getLastName() %><%= vo.getFirstName() %></td>
                     <td><%= vo.getEmail() %></td>
-                    <td><a class="btn btn-danger" href="delete.jsp?no=<%= vo.getNo() %>">삭제</a></td>
+                    <td><a class="btn btn-danger btn-sm" href="#" onclick="confirm_delete(<%= vo.getNo() %>)">삭제</a></td>
                 </tr>
-            <%
+           <%
             }
-            %>
+           %>
             </tbody>
         </table>
         <br />
 
         <p>
-            <a href="form.jsp" class="btn btn-primary">추가 이메일 등록</a>
+            <a href="<%= request.getContextPath() %>/el?a=form" class="btn btn-primary">추가 이메일 등록</a>
         </p>
     </div>
 
