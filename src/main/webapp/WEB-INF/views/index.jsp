@@ -5,12 +5,11 @@
 <%@page import="learnbyteaching.emaillist.dao.EmailListDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%--
 List<EmailVo> list = null;
-
 list = (List<EmailVo>)request.getAttribute("list");	//	object 타입이므로 컨버팅 필요
-
-%>
+--%>
 
 <!DOCTYPE html>
 <html>
@@ -48,17 +47,24 @@ function confirm_delete(no) {
                 </tr>
             </thead>
             <tbody>
-            <%
+            <%--
             for (EmailVo vo: list) {
             %>
-                <tr>
+            	<tr>
                     <td><%= vo.getLastName() %><%= vo.getFirstName() %></td>
                     <td><%= vo.getEmail() %></td>
                     <td><a class="btn btn-danger btn-sm" href="#" onclick="confirm_delete(<%= vo.getNo() %>)">삭제</a></td>
                 </tr>
-           <%
+            <%
             }
-           %>
+           	--%>
+            <c:forEach items="${list }" var="vo">
+                <tr>
+                    <td>${vo.lastName }${vo.firstName }</td>
+                    <td>${vo.email }</td>
+                    <td><a class="btn btn-danger btn-sm" href="#" onclick="confirm_delete(${vo.no})">삭제</a></td>
+                </tr>
+            </c:forEach>
             </tbody>
         </table>
         <br />
